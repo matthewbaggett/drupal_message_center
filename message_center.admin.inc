@@ -57,3 +57,26 @@ function message_center_edit_message($slug){
 	}
 	return $output;
 }
+
+function message_center_delete_message($slug){
+	// Pull the TID out
+	$mid_bits = explode("-", $slug, 2);
+	$mid = $mid_bits[0];
+	
+	// Get the Message
+	$message = message::search()->where('mid', $mid)->execOne();
+	
+	// Can't find the message? REJECT!
+	if(!$message){
+		drupal_set_message("No such message!","error");
+		drupal_goto($_SERVER['HTTP_REFERER']);
+	}
+	
+	// Check permissions
+	if(!message_center_check_permission('delete messages')){
+		drupal_set_message("You lack the permission to delete this message","error");
+		drupal_goto($_SERVER['HTTP_REFERER']);
+	}else{
+		$message->delete();
+	}
+}

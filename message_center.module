@@ -23,7 +23,27 @@ function message_center_check_permission($permission){
 }
 
 function message_center_menu() {
+	$items['admin/message_center/delete/%'] = array(
+			'title'	=> 'Delete Message',
+			'description' => "Delete a Message Center Message",
+			'page arguments' => array(3),
+			'page callback' => 'message_center_delete_message',
+			'file' => 'message_center.admin.inc',
+			'access callback' => 'message_center_check_permission',
+			'access arguments' => array('delete messages')
+	);
+	
 	$items['admin/message_center/edit/%'] = array(
+			'title'	=> 'Edit Message',
+			'description' => "Edit a Message Center Message",
+			'page arguments' => array(3),
+			'page callback' => 'message_center_edit_message',
+			'file' => 'message_center.admin.inc',
+			'access callback' => 'message_center_check_permission',
+			'access arguments' => array('edit messages')
+	);
+	
+	$items['admin/message_center/add'] = array(
 			'title'	=> 'Edit Message',
 			'description' => "Edit a Message Center Message",
 			'page arguments' => array(3),
