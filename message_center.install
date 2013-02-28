@@ -1,0 +1,28 @@
+<?php 
+
+function message_center_install(){
+	db_query("
+		CREATE TABLE IF NOT EXISTS {message_center_messages} (
+			`mid` int(11) NOT NULL AUTO_INCREMENT,
+			`version` int(11) NOT NULL,
+			`message_heading` text NOT NULL,
+			`message_body` text,
+			`created_date` datetime NOT NULL,
+			`created_uid` int(11) NOT NULL,
+			`deleted` enum('Yes','No') NOT NULL DEFAULT 'No',
+			PRIMARY KEY (`mid`,`version`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	");
+	drupal_set_message("Installed Message Center!");
+}
+
+function message_center_uninstall() {
+	db_query('DROP TABLE {message_center_messages}');
+	
+	// Clear cache
+	cache_clear_all('*', 'cache', TRUE);
+	cache_clear_all('*', 'cache_filter', TRUE);
+	cache_clear_all('*', 'cache_menu', TRUE);
+	cache_clear_all('*', 'cache_page', TRUE);
+	drupal_set_message("Unstalled Message Center..");
+}
