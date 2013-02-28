@@ -69,14 +69,27 @@ function message_center_delete_message($slug){
 	// Can't find the message? REJECT!
 	if(!$message){
 		drupal_set_message("No such message!","error");
-		drupal_goto($_SERVER['HTTP_REFERER']);
+		header("Location: {$_SERVER['HTTP_REFERER']}");
+		exit;
 	}
 	
 	// Check permissions
 	if(!message_center_check_permission('delete messages')){
 		drupal_set_message("You lack the permission to delete this message","error");
-		drupal_goto($_SERVER['HTTP_REFERER']);
 	}else{
 		$message->delete();
 	}
+	header("Location: {$_SERVER['HTTP_REFERER']}");
+	exit;
+}
+
+function message_center_add_message(){
+	$message = new message();
+	$message->message_heading = "New Message";
+	$message->message_body = " ";
+	$message->save();
+	$message->reload();
+	$mid = $message->get_id();
+	drupal_set_message("Created new Message.");
+	drupal_goto("admin/message_center/edit/{$message->get_slug()}");
 }

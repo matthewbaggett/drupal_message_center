@@ -44,13 +44,12 @@ function message_center_menu() {
 	);
 	
 	$items['admin/message_center/add'] = array(
-			'title'	=> 'Edit Message',
-			'description' => "Edit a Message Center Message",
-			'page arguments' => array(3),
-			'page callback' => 'message_center_edit_message',
+			'title'	=> 'Add new Message',
+			'description' => "Add a new Message Center Message",
+			'page callback' => 'message_center_add_message',
 			'file' => 'message_center.admin.inc',
 			'access callback' => 'message_center_check_permission',
-			'access arguments' => array('edit messages')
+			'access arguments' => array('create messages')
 	);
 
 	return $items;
