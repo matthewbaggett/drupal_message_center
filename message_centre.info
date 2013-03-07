@@ -1,0 +1,7 @@
+name = Message Centre
+description = A module that provides a message center where administrators can leave messages for users, perhaps as a dashboard.
+package = Custom
+core = 7.x
+dependencies[] = active_record
+stylesheets[all][] = message_centre.css
+

@@ -1,8 +1,8 @@
 <?php 
 class message extends versioned_active_record{
-	protected $_table = "message_center_messages";
+	protected $_table = "message_centre_messages";
 	protected $_cfg_deleteable	= true;
-	protected $_cfg_orderable	= true;
+	protected $_cfg_orderable	= false;
 	
 	public $message_body = '';
 	public $message_heading = '';

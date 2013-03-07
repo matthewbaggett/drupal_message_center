@@ -24,17 +24,13 @@
 			<ul class="buttons">
 				<?php if(user_access('edit messages')):?>
 				<li class="message-edit" title="<?=t("Edit Message");?>">
-					<a href="admin/message_center/edit/<?=$message->get_slug()?>">
-						<span><?=t("Edit Message")?></span>
-					</a>
+					<?=l("<span>" . t("Edit Message") . "</span>", "admin/message_centre/edit/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
 				</li>
 				<?php endif; ?>
 
 				<?php if(user_access('delete messages')):?>
 				<li class="message-delete" title="<?=t("Delete Message");?>">
-					<a href="admin/message_center/delete/<?=$message->get_slug()?>">
-						<span><?=t("Delete Message")?></span>
-					</a>
+					<?=l("<span>" . t("Delete Message") . "</span>", "admin/message_centre/delete/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
 				</li>
 				<?php endif; ?>
 			</ul>

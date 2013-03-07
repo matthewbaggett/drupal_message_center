@@ -1,0 +1,9 @@
+<ul class="messages">
+	<?php foreach($messages as $message):?>
+		<li>
+			<?php require("message.phtml");?>
+		</li>
+	<?php endforeach;?>
+</ul>
+
+<?php echo l(t("Add new Message"), "admin/message_centre/add"); ?>
