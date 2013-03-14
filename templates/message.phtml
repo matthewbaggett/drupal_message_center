@@ -1,39 +1,44 @@
-<div class="message <?=user_access('create messages')||user_access('edit messages')||user_access('delete messages')?'editor':'viewer'?>">
-	<div class="main">
-		<div class="heading">
-			<div class="icon"></div>
-			<h3>
-				<?php echo $message->message_heading; ?>
-			</h3>
-		</div>
-		<div class="body">
-			<?php echo $message->message_body; ?>
-		</div>
-		<div class="author">
-			<?=t(
-					"Written by <b>@author</b> at <b>@time</b>", 
-					array(
-						'@author' => $message->get_created_user()->name, 
-						'@time' => date("l jS \of F Y h:i:s A", strtotime($message->created_date))
-					)
-				);?>
-		</div>
-	</div>
-	<?php if(user_access('edit messages')||user_access('delete messages')?'editor':'viewer'):?>
-		<div class="options">
-			<ul class="buttons">
-				<?php if(user_access('edit messages')):?>
-				<li class="message-edit" title="<?=t("Edit Message");?>">
-					<?=l("<span>" . t("Edit Message") . "</span>", "admin/message_centre/edit/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
-				</li>
-				<?php endif; ?>
+<div class="message <?=user_access('create messages') || user_access('edit messages') || user_access('delete messages') ? 'editor' : 'viewer'?>">
+  <div class="main">
+    <div class="heading">
+      <div class="icon"></div>
+      <h3>
+        <?php echo l($message->message_heading, $message->get_read_path()); ?>
+      </h3>
+    </div>
+    <div class="body">
+      <?php if($read_more): ?>
+        <?php echo $message->get_summary($read_more_limit); ?>
+        <?=l(t("Read More"), $message->get_read_path()) ?>
+			<?php else: ?>
+        <?php echo $message->message_body; ?>
+			<?php endif; ?>
+    </div>
+    <div class="author">
+      <?=t(
+      "Written by <b>@author</b> at <b>@time</b>",
+      array(
+        '@author' => $message->get_created_user()->name,
+        '@time'   => date("l jS \of F Y h:i:s A", strtotime($message->created_date))
+      )
+    );?>
+    </div>
+  </div>
+  <?php if (user_access('edit messages') || user_access('delete messages') ? 'editor' : 'viewer'): ?>
+    <div class="options">
+      <ul class="buttons">
+        <?php if (user_access('edit messages')): ?>
+          <li class="message-edit" title="<?=t("Edit Message");?>">
+            <?=l("<span>" . t("Edit Message") . "</span>", "admin/message_centre/edit/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
+          </li>
+        <?php endif; ?>
 
-				<?php if(user_access('delete messages')):?>
-				<li class="message-delete" title="<?=t("Delete Message");?>">
-					<?=l("<span>" . t("Delete Message") . "</span>", "admin/message_centre/delete/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
-				</li>
-				<?php endif; ?>
-			</ul>
-		</div>
-	<?php endif;?>
+        <?php if (user_access('delete messages')): ?>
+          <li class="message-delete" title="<?=t("Delete Message");?>">
+            <?=l("<span>" . t("Delete Message") . "</span>", "admin/message_centre/delete/{$message->get_slug()}", array('attributes' => array('class' => 'edit-message'), 'html' => TRUE))?>
+          </li>
+        <?php endif; ?>
+      </ul>
+    </div>
+  <?php endif;?>
 </div>

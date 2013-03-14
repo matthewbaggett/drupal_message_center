@@ -1,9 +1,14 @@
-<ul class="messages">
-	<?php foreach($messages as $message):?>
-		<li>
-			<?php require("message.phtml");?>
-		</li>
-	<?php endforeach;?>
-</ul>
-
-<?php echo l(t("Add new Message"), "admin/message_centre/add"); ?>
+<div class="message_centre">
+	<ul class="messages">
+	  <?php foreach ($messages as $message): ?>
+	    <li>
+	      <?php require("message.phtml");?>
+	    </li>
+	  <?php endforeach;?>
+	</ul>
+	<?php if(message_centre_check_permission('create messages')): ?>
+    <ul class="action-links">
+        <li><?php echo l(t("Add new Message"), "admin/message_centre/add"); ?></li>
+    </ul>
+	<?php endif; ?>
+</div>
