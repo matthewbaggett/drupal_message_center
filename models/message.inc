@@ -6,6 +6,7 @@ class message extends versioned_active_record {
 
   public $message_body = '';
   public $message_heading = '';
+  public $sticky = 'No';
 
   private function message_heading_slug() {
     return $this->_slugify(substr($this->message_heading, 0, 30));
@@ -41,4 +42,33 @@ class message extends versioned_active_record {
 		}
 		return $paragraph;
 	}
+
+  /**
+   * Is this Message sticky?
+   *
+   * @return bool
+   */
+  public function is_sticky(){
+    return $this->sticky=="Yes" ? true : false;
+  }
+
+  /**
+   * Set this Message to sticky. Has Implicit save.
+   * @return $this
+   */
+  public function set_sticky(){
+    $this->sticky = "Yes";
+    $this->save();
+    return $this;
+  }
+
+  /**
+   * Set this Message to not sticky. Has Implicit save.
+   * @return $this
+   */
+  public function set_not_sticky(){
+    $this->sticky = "No";
+    $this->save();
+    return $this;
+  }
 }

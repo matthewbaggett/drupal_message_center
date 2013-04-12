@@ -12,6 +12,7 @@ function message_centre_edit_message($slug) {
     if (message_centre_check_permission('edit messages')) {
       $message->message_heading = $_POST['message_heading'];
       $message->message_body    = $_POST['message_body'];
+      $message->sticky          = $_POST['sticky'] == "Yes" ? "Yes" : "No";
       $message->save();
       drupal_set_message("Saved changes to {$message->message_heading}");
     } else {

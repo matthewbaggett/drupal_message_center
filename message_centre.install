@@ -26,3 +26,10 @@ function message_centre_uninstall() {
   cache_clear_all('*', 'cache_page', true);
   drupal_set_message("Unstalled Message Centre..");
 }
+
+/**
+ * Add sticky bit to messages
+ */
+function message_centre_update_7001(){
+  db_query("ALTER TABLE {message_centre_messages} ADD COLUMN `sticky` ENUM('Yes','No') NOT NULL DEFAULT 'No'  AFTER `message_body`");
+}

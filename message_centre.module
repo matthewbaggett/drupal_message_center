@@ -88,6 +88,7 @@ function message_centre_block_view($delta = '') {
       $block['subject']      = t('Message Centre');
       $view                  = new StdClass();
       $view->messages        = message::search()
+        ->order('sticky', 'DESC')
         ->order('created_date', 'DESC')
         ->exec();
 	    $view->read_more       = true;
